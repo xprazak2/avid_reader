@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 
-
 describe "Static pages" do
   include Rails.application.routes.url_helpers
   include ApplicationHelper
