@@ -7,7 +7,7 @@ AvidReader::Application.routes.draw do
   match '/signup',  to: 'users#new'
   match '/about', to: 'static_pages#about'
   match 'signin', to: 'sessions#new'
-  match '/signout', to: 'sessions#delete', via: :delete
+  match '/signout', to: 'sessions#destroy', via: :delete
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
