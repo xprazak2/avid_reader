@@ -9,4 +9,11 @@ FactoryGirl.define do
       admin true
     end
   end
+
+  factory :book do
+    sequence(:author) {|n| "Anonymous#{n}"}
+    sequence(:title) {|n| "Forgotten memories#{n}"}
+  end
 end
+
+

@@ -1,4 +1,7 @@
 AvidReader::Application.routes.draw do
+ 
+  
+  resources :books
   resources :users
   resources :sessions, only: [:create, :destroy, :new]
 
