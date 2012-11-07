@@ -14,7 +14,7 @@ describe "book pages" do
     it { should have_selector('title', text: 'All books') }
     it { should have_selector('h1',    text: 'All books') }
 
-    it "should list each user" do
+    it "should list each book" do
       Book.all.each do |book|
         page.should have_selector('li', text: book.title)
       end
@@ -53,5 +53,34 @@ describe "book pages" do
    end   
   end
 
+  describe "delete links" do
+    it {should_not have_link('delete')}
+
+    describe "as admin" do
+        let(:admin) {FactoryGirl.create(:admin)}
+        before(:all) { 5.times { FactoryGirl.create(:book) } }
+        after(:all) { Book.delete_all }
+        before do
+          sign_in admin
+          visit books_path
+        end
+        it {should have_link('delete', href: book_path(Book.first))}
+        it "should be able to delete book" do
+          expect{ click_link('delete')}.to change(Book, :count).by(-1)
+        end
+        
+    end
+  end
+
+  describe "deleting book as non admin" do
+    let(:user){FactoryGirl.create(:user)}
+    let(:book){FactoryGirl.create(:book)}
+    before { sign_in user }
+
+    describe "submit delete request" do
+      before {delete book_path(book)}
+      specify {response.should redirect_to(root_path)}
+    end
+  end
 
 end

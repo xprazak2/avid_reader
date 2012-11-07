@@ -1,0 +1,7 @@
+<li>
+
+<div id="bookTitle"><%= link_to book.title, book %> <% if current_user.admin? %>
+        | <%= link_to "delete", book, method: :delete, data: {confirm: "Are you absolutely positively sure?"} %>
+      <% end %></div> <div id="author"><%= book.author %></div>
+      
+</li>
