@@ -1,9 +1,15 @@
 AvidReader::Application.routes.draw do
  
   
-  resources :books
-  resources :users
+  resources :books do
+    resources :posts, only: [:create, :destroy, :new]
+  end
+  
+  resources :users    
+  
+  
   resources :sessions, only: [:create, :destroy, :new]
+  
 
   root to: 'static_pages#home'
 

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe User do
   before {@user = User.new(name: "Example User", email: "example@user.com", password: "foobar", password_confirmation: "foobar")}
-
+  
   subject {@user}
 
   it {should respond_to(:name)}
@@ -13,6 +13,7 @@ describe User do
   it { should respond_to(:remember_token) }
   it { should respond_to(:authenticate) } 
   it { should respond_to(:admin)} 
+  it {should respond_to(:posts)}
 
   it { should be_valid }
   it { should_not be_admin}
@@ -117,4 +118,23 @@ describe User do
     its(:remember_token) {should_not be_blank} #it { @user.remember_token.should_not be_blank }
   end
 
+  describe "post-user associations" do
+    before {@user.save}
+    let(:book){FactoryGirl.create(:book)}
+    let!(:first_post) do 
+      FactoryGirl.create(:post, user: @user, book: book, created_at: 1.day.ago )
+    end
+    let!(:last_post) do 
+      FactoryGirl.create(:post, user: @user, book: book, created_at: 1.hour.ago )
+    end  
+
+    it "should destroy associated posts" do
+      posts = @user.posts.dup
+      @user.destroy
+      posts.should_not be_empty
+      posts.each do |post|
+        Post.find_by_id(post.id).should be_nil
+       end    
+     end
+   end  
 end

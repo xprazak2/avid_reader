@@ -14,5 +14,22 @@ namespace :db do
                    password: password,
                    password_confirmation: password)
     end
+    Book.create!(author: "Random author", title: "Mysteries of sunday afternoon")     
+       35.times do |n|
+          author = Faker::Name.name
+          title = "Mysteries of sunday afternoon, part #{n+1}"
+          Book.create!(author: author, title: title)
+       end     
+  end 
+
+  task create_posts: :environment do 
+      
+   users = User.all(limit: 6)
+
+    30.times do
+      content = Faker::Lorem.sentence(5)
+      book = Book.first
+      users.each { |user| user.posts.create!(content: content, book_id: book.id) }
+    end
   end
 end

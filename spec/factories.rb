@@ -14,6 +14,12 @@ FactoryGirl.define do
     sequence(:author) {|n| "Anonymous#{n}"}
     sequence(:title) {|n| "Forgotten memories#{n}"}
   end
+  
+  factory :post do
+    content "This is stupid"
+    user
+    book
+  end
 end
 
 

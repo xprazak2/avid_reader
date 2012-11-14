@@ -1,3 +1,20 @@
 <% provide(:title, @book.title)%>
 <h1><%= @book.title %></h1>
-<h3>by <%= @book.author %></h3>
+
+<div class="row">
+  <div class="span6"><h3>by <%= @book.author %></h3></div>
+  <div class="span2"><%= link_to "New post", new_book_post_path(book_id: @book.id), class: "btn btn-inverse btn-small" %></div>
+</div>
+
+
+
+<div class="row">
+  <div class="span8">
+    <% if @book.posts.any? %>
+      <ol class="posts">
+          <%= render @posts %>
+      </ol>
+      <%= will_paginate @posts %>
+    <% end %>
+  </div>
+</div>

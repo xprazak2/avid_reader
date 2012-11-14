@@ -7,6 +7,7 @@ describe Book do
 
   it {should respond_to(:title)}
   it {should respond_to(:author)}
+  it {should respond_to(:posts)}
 
   it {should be_valid}
 
@@ -54,6 +55,26 @@ describe Book do
       with_same_author.save
     end
      it {should be_valid}
+  end
+
+  describe "post-book associations" do
+    before {@book.save}
+    let(:user){FactoryGirl.create(:user)}
+    let!(:first_post) do 
+      FactoryGirl.create(:post, user: user, book: @book, created_at: 1.day.ago )
+    end
+    let!(:last_post) do 
+      FactoryGirl.create(:post, user: user, book: @book, created_at: 1.hour.ago )
+    end  
+
+    it "should destroy associated posts" do
+      posts = @book.posts.dup
+      @book.destroy
+      posts.should_not be_empty
+      posts.each do |post|
+        Post.find_by_id(post.id).should be_nil
+      end  
+    end
   end
 
 

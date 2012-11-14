@@ -40,6 +40,27 @@ describe "Authentication" do
 
     describe "for non-signed-in users" do
       let(:user) { FactoryGirl.create(:user) }
+      let(:book) { FactoryGirl.create(:book)}
+       after(:all) { User.delete_all }
+       after(:all) { Book.delete_all }
+
+      describe "in posts controller" do   
+         
+        describe "submitting to create action" do
+          before {post book_posts_path(book_id: book.id) }
+          specify { response.should redirect_to(signin_path) }
+        end
+
+        describe "submitting to new action" do
+          before {get new_book_post_path(book_id: book.id)}
+          specify { response.should redirect_to(signin_path) }
+        end
+
+        describe "submitting to destroy action" do
+          before { delete book_post_path(book, FactoryGirl.create(:post)) }
+          specify { response.should redirect_to(signin_path) }
+        end
+      end
 
       describe "in the Users controller" do
         describe "visiting the edit page" do
@@ -64,6 +85,7 @@ describe "Authentication" do
         end
       end
     end
+  
   end
 
   #describe "book operations authorization" do
