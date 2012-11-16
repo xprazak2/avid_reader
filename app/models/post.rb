@@ -1,5 +1,5 @@
 class Post < ActiveRecord::Base
-  attr_accessible  :content, :user_id
+  attr_accessible  :content, :book_id
   
   belongs_to :user, foreign_key: "user_id"
   belongs_to :book, foreign_key: "book_id"

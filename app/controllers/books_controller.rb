@@ -13,8 +13,9 @@ class BooksController < ApplicationController
   def show
     @book=Book.find(params[:id])
     @posts=@book.posts.paginate(page: params[:page])
+    
   end
-
+ 
   def create
     @book=Book.new(params[:book])
     if @book.save

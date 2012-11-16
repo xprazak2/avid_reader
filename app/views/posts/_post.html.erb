@@ -3,7 +3,9 @@
   <span class="post_owner"><%= post.user.name %>: </span>
   <span class="content"><%= post.content %></span>
   <span class="timestamp">
-    Submitted <%= post.created_at.localtime.to_s :long %> 
+    Submitted <%= post.created_at.localtime.to_s :long %> | <% if current_user?(post.user) || current_user.admin? %> 
+                                                            <%= link_to "delete", [post.book, post], method: :delete, data: {confirm: "Are you sure?"}, title: post.content %>
+                                                            <% end %>
   </span>
 </div>
 </li>

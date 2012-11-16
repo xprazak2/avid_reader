@@ -5,7 +5,7 @@ describe Post do
   let(:user){FactoryGirl.create(:user)}
   let(:book){FactoryGirl.create(:book)}
 
-  before {@post=book.posts.build(content: "Lorem ipsum dolor", user_id: user.id)} 
+  before {@post=user.posts.build(content: "Lorem ipsum dolor", book_id: book.id)} 
 
   subject {@post}
   
