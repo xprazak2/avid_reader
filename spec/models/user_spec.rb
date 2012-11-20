@@ -14,6 +14,7 @@ describe User do
   it { should respond_to(:authenticate) } 
   it { should respond_to(:admin)} 
   it {should respond_to(:posts)}
+  it {should respond_to(:ratings)}
 
   it { should be_valid }
   it { should_not be_admin}
@@ -136,5 +137,26 @@ describe User do
         Post.find_by_id(post.id).should be_nil
        end    
      end
-   end  
+   end
+
+   describe "rating-user assiciations" do
+     before {@user.save}
+     let(:book){FactoryGirl.create(:book)}
+     let(:book1){FactoryGirl.create(:book)}
+     let!(:fst_rating) do
+       FactoryGirl.create(:rating, score: 5, user: @user, book: book)
+     end
+     let!(:lst_rating) do 
+       FactoryGirl.create(:rating, score: 8, user: @user, book: book1)
+     end
+
+     it "should destroy associated ratings" do
+       ratings = @user.ratings.dup
+       @user.destroy
+       ratings.should_not be_empty
+       ratings.each do |rating|
+         Rating.find_by_id(rating.id).should be_nil
+       end
+     end  
+   end 
 end

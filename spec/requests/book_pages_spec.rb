@@ -8,6 +8,7 @@ describe "book pages" do
       sign_in FactoryGirl.create(:user)
       FactoryGirl.create(:book, author: "Jib", title:"2004 in song")
       FactoryGirl.create(:book, author: "Jab", title:"2005 in limerics")
+  
       visit books_path
     end
 
@@ -23,10 +24,12 @@ describe "book pages" do
 
   describe "book page" do
     let(:book){FactoryGirl.create(:book)}
+    let!(:post){FactoryGirl.create(:post, book: book)}
     before {visit book_path(book)}
 
     it { should have_selector('h1',    text: book.title) }
-    it { should have_selector('title', text: book.title) }  
+    it { should have_selector('title', text: book.title) }
+    
   end
 
   describe "creating new book" do
@@ -53,7 +56,7 @@ describe "book pages" do
    end   
   end
 
-  describe "delete links" do
+  describe "delete links for books" do
     it {should_not have_link('delete')}
 
     describe "as admin" do
@@ -82,5 +85,9 @@ describe "book pages" do
       specify {response.should redirect_to(root_path)}
     end
   end
+
+  
+
+  
 
 end

@@ -1,0 +1,5 @@
+<%= form_for [@book, @book.ratings.build], class: "form-inline" do |f| %>
+                              <%= render 'shared/error_messages', object: f.object %>    
+                              <%= f.text_field :score, placeholder: "0 - worst, 100 - best" %>
+                              <%= f.submit "Rate book", class: "btn btn-inverse btn-small" %>
+                              <% end %>

@@ -38,7 +38,9 @@ describe Post do
   describe "with blank content" do
     before { @post.content = " " }
     it { should_not be_valid }
-  end  
+  end
+
+  
    
 
 end		

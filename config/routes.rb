@@ -3,6 +3,7 @@ AvidReader::Application.routes.draw do
   
   resources :books do
     resources :posts, only: [:create, :destroy, :new]
+    resources :ratings, only: [:create ]
   end
   
   resources :users    

@@ -20,6 +20,12 @@ FactoryGirl.define do
     user
     book
   end
+
+  factory :rating do
+    score 5
+    user
+    book
+  end
 end
 
 

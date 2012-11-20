@@ -41,6 +41,7 @@ describe "Authentication" do
     describe "for non-signed-in users" do
       let(:user) { FactoryGirl.create(:user) }
       let(:book) { FactoryGirl.create(:book)}
+      
        after(:all) { User.delete_all }
        after(:all) { Book.delete_all }
 
@@ -59,7 +60,7 @@ describe "Authentication" do
         describe "submitting to destroy action" do
           before { delete book_post_path(book, FactoryGirl.create(:post)) }
           specify { response.should redirect_to(signin_path) }
-        end
+        end        
       end
 
       describe "in the Users controller" do
@@ -85,19 +86,42 @@ describe "Authentication" do
         end
       end
     end
-  
+
+    describe "for signed in users" do
+      let(:user) { FactoryGirl.create(:user) }
+      let(:admin) { FactoryGirl.create(:admin) }
+      let(:book) { FactoryGirl.create(:book)}
+      let(:post) { FactoryGirl.create(:post, book: book, user: user)}
+      
+       after(:all) { User.delete_all }
+       after(:all) { Book.delete_all }
+       after(:all) { Post.delete_all }
+       
+       describe "submiting to delete post as post owner" do
+         before {sign_in user}
+         before {delete book_post_path(book, post)}
+         specify {response.should redirect_to(book_path(book))}         
+       end
+
+       describe "submiting to delete post as admin" do
+         before {sign_in admin}
+         before {delete book_post_path(book, post)}
+         specify {response.should redirect_to(book_path(book))}         
+       end              
+    end  
+
   end
 
   #describe "book operations authorization" do
     
-   # describe "adding new book" do
-    #    let(:user) {FactoryGirl.create(:user)}
-     #   let(:book) {FactoryGirl.create(:book)}
+    #describe "adding new book" do
+       # let(:user) {FactoryGirl.create(:user)}
+      #  let(:book) {FactoryGirl.create(:book)}
 
       #  describe "visiting the new book page" do
        #   before {visit new_book_path}
-        #  it { should have_selector('title', text: 'Sign in') }
-        #end
+      #    it { should have_selector('title', text: 'New book') }
+    #    end
    # end
   #end
 end

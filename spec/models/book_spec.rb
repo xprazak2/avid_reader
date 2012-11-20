@@ -8,6 +8,7 @@ describe Book do
   it {should respond_to(:title)}
   it {should respond_to(:author)}
   it {should respond_to(:posts)}
+  it {should respond_to(:ratings)}
 
   it {should be_valid}
 
@@ -76,6 +77,27 @@ describe Book do
       end  
     end
   end
+
+  describe "rating-book assiciations" do
+     before {@book.save}
+     let(:user){FactoryGirl.create(:user)}
+     let(:user1){FactoryGirl.create(:user)}
+     let!(:fst_rating) do
+       FactoryGirl.create(:rating, score: 5, user: user, book: @book)
+     end
+     let!(:lst_rating) do 
+       FactoryGirl.create(:rating, score: 8, user: user1, book: @book)
+     end
+
+     it "should destroy associated ratings" do
+       ratings = @book.ratings.dup
+       @book.destroy
+       ratings.should_not be_empty
+       ratings.each do |rating|
+         Rating.find_by_id(rating.id).should be_nil
+       end
+     end  
+   end 
 
 
 end
