@@ -1,20 +1,20 @@
 <% provide(:title, @book.title)%>
 <h1><%= @book.title %></h1>
 
-<div class="row">
-  <div class="span6 padded author">by <%= @book.author %></div> <div><% if @book.ratings.any?%>
-                                                                     <%= rating_total @book %>
+<div class="row info">
+  <div class="span5 padded author">by <%= @book.author %></div> <% if @book.ratings.any?%>
+
+                            <div class="rating span1"><%= total_rating @book  %></div>
+                                                                                                                            
                                                                      <% else %>  
-                                                                     <%= "This book has not yet been rated." %> 
-                                                                     <% end %></div>
+                                              </br><div class="not_rated"><%= "This book has not yet been rated." %></div>
+                                                                     <% end %>
 </div>
 
-<div class="row">
-</div>
 
-<div class="row">
+<div class="row padded_top">
   
-  <div class="span8  ">
+  <div class="span8">
     <% if @book.posts.any? %>
       <ol class="posts">
           <%= render @posts %>
@@ -23,12 +23,12 @@
     <% end %>
   </div>
 
-<div class="offset8 padded"><%= link_to "New post", new_book_post_path(book_id: @book.id), class: "btn btn-inverse btn-small" %></div> 
-  <% rating = Rating.find_by_user_id_and_book_id(current_user, @book) %> 
+  <div class="offset8 padded"><div class="span2"><%= link_to "New post", new_book_post_path(book_id: @book.id), class: "btn btn-inverse btn-small" %> </div>
+                              <% rating = Rating.find_by_user_id_and_book_id(current_user, @book) %> 
                               <% if !rating.nil?%>
-                               <div class="result span3 padded">Your submitted rating: <%= rating.score %> </div>
+                               <div class="result span3 padded_top">Your rating: <%= rating.score %> </div>
                               <% else %>
-                               <div class="span2 padded"> <%= render 'shared/rating_form' %></div>
+                               <div class="span2 padded_top"> <%= render 'shared/rating_form' %></div>
                               <% end %>
-                    
+  </div>                   
 </div>

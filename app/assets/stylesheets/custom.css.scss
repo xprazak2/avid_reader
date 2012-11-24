@@ -3,6 +3,9 @@
 /* mixins, variables, etc. */
 
 $grayMediumLight: #eaeaea;
+$midnightBlue: #00008B;
+$orange: #FF6103;
+$scarlet: #CD0000;
 
 @mixin box_sizing {
   -moz-box-sizing: border-box; 
@@ -60,12 +63,16 @@ h2 {
 p {
   font-size: 1.1em;
   line-height: 1.7em;
+  a {
+       color: $orange;
+       &:hover{
+       color: #FF8C00; 
+       }
+      }
 }
 
 .result{
-  font-size: 1.2em;
-  
-  
+  font-size: 1.1em;  
 }
 
 .author{
@@ -73,6 +80,15 @@ p {
   font-size: 1.5em;
   font-weight: bold;
   letter-spacing: -1px;
+}
+
+.rating{
+  font-size: 2.5em;
+  font-weight: bold;
+  width: 20px;
+  text-align: center;
+  color: $orange;
+
 }
 
 
@@ -160,6 +176,7 @@ input, textarea, select, .uneditable-input {
 
 .users {
   list-style: none;
+  padding: 12px 0;
   margin: 0;
   li {
     overflow: auto;
@@ -167,6 +184,25 @@ input, textarea, select, .uneditable-input {
     border-top: 1px solid $grayLighter;
     &:last-child {
       border-bottom: 1px solid $grayLighter;
+    }
+    #name{
+      style: inline;
+      font-size: 12pt;
+      a {
+       color: $orange;
+       &:hover{
+       color: #FF8C00; 
+       }
+      }
+    }
+    #delete{
+      float:right;
+      a{
+        color: $orange;
+        &:hover{
+          color: $scarlet;
+        }
+      }
     }
   }
 }
@@ -176,25 +212,59 @@ input, textarea, select, .uneditable-input {
 .books {
   list-style: none;
   margin: 0;
-  li {
-    overflow: auto;
-    padding: 10px 0;
-    border-top: 1px solid $grayLighter;
-    &:last-child {
-      border-bottom: 1px solid $grayLighter;
+  li {    
+    overflow: auto;   
+    padding: 12px 0;
+    border-top: 1px solid $grayLighter;    
+    #bookTitle{
+      style: inline;
+      font-size: 12pt;
+      a {
+       color: $orange;
+       &:hover{
+       color: #FF8C00; 
+       }
+      }
     }
+    #delete{
+      float:right;
+      a{
+        color: $orange;
+        &:hover{
+          color: $scarlet;
+        }
+      }
+    }
+    #author{
+      padding: 5px 0px;
+    }
+    &:last-child {
+      border-bottom: 1px solid $grayLighter;    
+    }
+    
   }
 }
+
+
 
 /* posts */
 
 .posts {
   list-style: none;
   margin: 10px 0 0 0;
-
+ 
   li {
     padding: 0 px 0;
     /*border-top: 1px solid #e8e8e8;*/
+     #delete{
+      
+      a{
+        color: $orange;
+        &:hover{
+          color: $scarlet;
+        }
+      }
+    }
   }
 }
 .content {
@@ -214,6 +284,18 @@ input, textarea, select, .uneditable-input {
 
 .padded {
  padding: 10px
+}
+
+.info {
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.padded_top {
+  padding-top: 10px;
+}
+
+.not_rated {
+  bottom: 0px;
 }
 
 

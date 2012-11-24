@@ -1,6 +1,6 @@
 class BooksController < ApplicationController
-  before_filter :signed_in_user, only: [:create, :index, :destroy]
-  before_filter :admin_user,  only: :destroy
+  before_filter :signed_in_user, only: [:index, :show ]
+  before_filter :admin_user,  only: [:destroy, :new, :create]
  
   def new  
     @book=Book.new

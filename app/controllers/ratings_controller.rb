@@ -7,9 +7,10 @@ class RatingsController < ApplicationController
     @rating.book = @book
     if @rating.save
       flash[:success] = "Book rated"
-      redirect_to Book.find(params[:book_id])
+      redirect_to @book
     else
-      redirect_to Book.find(params[:book_id])
+      flash[:error] = "Submitted rating was not a number between 0 and 100"
+      redirect_to @book
     end
   end
 

@@ -1,7 +1,11 @@
 module RatingsHelper
 
-  def rating_total(book)
-    book.ratings.each {|rating| total += rating.score } / book.ratings.all.count
-    
+  def total_rating(book)
+    total = 0    
+    book.ratings.all.each do |rating|
+      total += rating.score
+    end
+    total / book.ratings.all.count
   end
+
 end

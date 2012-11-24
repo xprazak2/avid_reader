@@ -36,7 +36,7 @@ describe "RatingPages" do
     before{sign_in user1}
     before{visit book_path(book)}
 
-    it {should have_selector('span', text: "Your submitted rating")}
+    it {should have_selector('div', text: "Your rating")}
   end
   
 end

@@ -7,5 +7,7 @@ class Post < ActiveRecord::Base
   validates :book_id, presence: true
   validates :user_id, presence: true
   validates :content, presence: true
+
+  default_scope order: 'posts.created_at DESC'
   
 end

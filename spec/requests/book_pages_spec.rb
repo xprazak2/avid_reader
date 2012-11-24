@@ -24,7 +24,9 @@ describe "book pages" do
 
   describe "book page" do
     let(:book){FactoryGirl.create(:book)}
+    let(:user){FactoryGirl.create(:user)}
     let!(:post){FactoryGirl.create(:post, book: book)}
+    before {sign_in user}
     before {visit book_path(book)}
 
     it { should have_selector('h1',    text: book.title) }
@@ -33,8 +35,8 @@ describe "book pages" do
   end
 
   describe "creating new book" do
-   let(:user){FactoryGirl.create(:user)}
-   before {sign_in user}
+   let(:admin){FactoryGirl.create(:admin)}
+   before {sign_in admin}
    before {visit new_book_path}
 
    let(:submit) {"Create new book"}
@@ -56,8 +58,7 @@ describe "book pages" do
    end   
   end
 
-  describe "delete links for books" do
-    it {should_not have_link('delete')}
+  describe "delete links for books" do    
 
     describe "as admin" do
         let(:admin) {FactoryGirl.create(:admin)}
@@ -84,10 +85,22 @@ describe "book pages" do
       before {delete book_path(book)}
       specify {response.should redirect_to(root_path)}
     end
+
+    describe "delete links for user" do
+        before {visit books_path}
+        it {should_not have_link('delete')}
+      end
   end
 
-  
+  describe "creating book as non-admin" do
+    let(:user){FactoryGirl.create(:user)}
+    let(:book){FactoryGirl.create(:book)}
+    before { sign_in user }
 
-  
+      describe "submit to new request" do
+        before {get new_book_path}
+        specify {response.should redirect_to(root_path)}
+      end
 
+  end
 end
