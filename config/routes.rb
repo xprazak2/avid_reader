@@ -6,7 +6,8 @@ AvidReader::Application.routes.draw do
     resources :ratings, only: [:create ]
   end
   
-  resources :users    
+  resources :users
+    
   
   
   resources :sessions, only: [:create, :destroy, :new]

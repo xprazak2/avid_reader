@@ -1,10 +1,14 @@
 class UsersController < ApplicationController
-  before_filter :signed_in_user, only: [:index, :edit, :update, :destroy] 
+  before_filter :signed_in_user, only: [:index, :edit, :update, :destroy, :show] 
   before_filter :correct_user, only: [:edit, :update]
-  before_filter :admin_user,  only: :destroy
-
- def show
+  before_filter :admin_user,  only: :destroy  
+  
+  def show
     @user = User.find(params[:id])
+     
+    @books = Book.joins('JOIN posts ON books.id = book_id').where("user_id = ?", current_user.id).uniq.paginate(page: params[:page])
+    @bookss = Book.joins('JOIN ratings ON books.id = book_id').where("user_id = ?", current_user.id).uniq.paginate(page: params[:page])
+
   end
 
   def new

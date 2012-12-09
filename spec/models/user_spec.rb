@@ -15,6 +15,7 @@ describe User do
   it { should respond_to(:admin)} 
   it {should respond_to(:posts)}
   it {should respond_to(:ratings)}
+  
 
   it { should be_valid }
   it { should_not be_admin}
@@ -157,6 +158,8 @@ describe User do
        ratings.each do |rating|
          Rating.find_by_id(rating.id).should be_nil
        end
-     end  
+     end
+
+     
    end 
 end

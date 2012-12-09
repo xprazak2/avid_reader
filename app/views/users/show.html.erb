@@ -1,10 +1,25 @@
 <% provide(:title, @user.name) %>
 <div class="row">
-  <aside class="span4">
+  <aside class="span6">
     <section>
       <h1>        
         <%= @user.name %>
       </h1>
     </section>
-  </aside>
+  </aside> 
+  
+</div>
+
+<div class ="row">     
+  <div class="tabbable links">      
+    <ul class="nav nav-tabs"> 
+      <li class="active"><a href="#pane1" data-toggle="tab">Posted books</a></li>
+      <li><a href="#pane2" data-toggle="tab">Rated books</a></li>     
+    </ul>     
+  </div>
+
+  <div class="tab-content">
+    <div id="pane1" class="tab-pane active books"><%= render @books %> <%= will_paginate @books %></div>
+    <div id="pane2" class="tab-pane books"><%= render @bookss %> <%= will_paginate @bookss %></div>
+  </div>            
 </div>

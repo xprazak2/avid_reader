@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   has_many :posts, dependent: :destroy
   has_many :ratings, dependent: :destroy
   
+  
   before_save {|user| user.email = email.downcase} #  { self.email.downcase! } je ekvivalentni
   before_save :create_remember_token
 
